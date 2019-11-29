@@ -9,6 +9,7 @@ import com.moviefy.model.Movie
 import com.moviefy.model.MoviesRepository
 import kotlinx.android.synthetic.main.fragment_home.*
 import com.moviefy.R
+import com.moviefy.ui.navigator.Navigator
 
 
 class ReleaseFilmsFragment : Fragment(), ReleaseFilmsPresenter.View {
@@ -46,8 +47,15 @@ class ReleaseFilmsFragment : Fragment(), ReleaseFilmsPresenter.View {
         progressBar.visibility = View.VISIBLE
     }
 
+    override fun navigateTo(movie: Movie) {
+        activity?.let {activity ->
+            Navigator.MovieDetail.openDetail(activity, movie)
+        }
+    }
+
     override fun hideProgress() {
         progressBar.visibility = View.INVISIBLE
-
     }
+
+
 }

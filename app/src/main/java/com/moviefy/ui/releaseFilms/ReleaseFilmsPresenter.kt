@@ -11,7 +11,7 @@ class ReleaseFilmsPresenter(private val moviesRepository: MoviesRepository) : Sc
         fun showProgress()
         fun hideProgress()
         fun updateData(movies: List<Movie>)
-//        fun navigateTo(movie: Movie)
+        fun navigateTo(movie: Movie)
     }
 
     private var view: View? = null
@@ -28,7 +28,7 @@ class ReleaseFilmsPresenter(private val moviesRepository: MoviesRepository) : Sc
     }
 
     fun onMovieClicked(movie: Movie) {
-//        view?.navigateTo(movie)
+        view?.navigateTo(movie)
     }
 
     fun onDestroy() {
