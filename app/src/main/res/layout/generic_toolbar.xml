@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorPrimary"
+        app:titleTextColor="@color/colorWhite"
         app:contentInsetStart="@dimen/margin_standard"
         app:contentInsetStartWithNavigation="@dimen/one_grid_unit"
         app:paddingStart="0dp"

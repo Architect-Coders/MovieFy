@@ -1,20 +1,40 @@
 package com.moviefy.ui.detailMovie
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.moviefy.R
+import com.moviefy.model.Movie
+import com.moviefy.ui.base.GenericToolbarActivity
+import com.moviefy.ui.common.loadUrl
+import kotlinx.android.synthetic.main.movie_detail.*
 
 
-class DetailMovie: AppCompatActivity() {
+class DetailMovie: GenericToolbarActivity(), DetailMoviePresenter.View {
 
     companion object {
         const val MOVIE = "DetailMovie:movie"
     }
 
+    private val presenter = DetailMoviePresenter()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_detail)
 
+        presenter.onCreate(this, intent.getParcelableExtra(MOVIE))
     }
 
+    override fun onDestroy() {
+        presenter.onDestroy()
+        super.onDestroy()
+    }
+
+    override fun updateUI(movie: Movie) {
+        configureActionBar(movie.title)
+
+        posterFilm.loadUrl("https://image.tmdb.org/t/p/w185/${movie.posterPath}")
+        moviePuntuation.text = movie.voteAverage.toString()
+        movieDescription.text = movie.overview
+
+    }
 }

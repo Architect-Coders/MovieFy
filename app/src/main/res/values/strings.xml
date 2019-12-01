@@ -3,4 +3,5 @@
     <string name="title_home">MovieFy</string>
     <string name="title_trending">Trending</string>
     <string name="title_favourites">Favourites</string>
+    <string name="movie_description">Description:</string>
 </resources>
