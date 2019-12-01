@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.moviefy.R
 import com.moviefy.model.Movie
 import com.moviefy.ui.base.GenericToolbarActivity
-import com.moviefy.ui.common.loadUrl
+import com.moviefy.ui.common.loadImage
 import kotlinx.android.synthetic.main.movie_detail.*
 
 
@@ -32,7 +32,7 @@ class DetailMovie: GenericToolbarActivity(), DetailMoviePresenter.View {
     override fun updateUI(movie: Movie) {
         configureActionBar(movie.title)
 
-        posterFilm.loadUrl("https://image.tmdb.org/t/p/w185/${movie.posterPath}")
+        posterFilm.loadImage(movie.posterPath)
         moviePuntuation.text = movie.voteAverage.toString()
         movieDescription.text = movie.overview
 

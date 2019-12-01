@@ -7,7 +7,7 @@ import com.moviefy.R
 import com.moviefy.model.Movie
 import com.moviefy.ui.common.basicDiffUtil
 import com.moviefy.ui.common.inflate
-import com.moviefy.ui.common.loadUrl
+import com.moviefy.ui.common.loadImage
 import kotlinx.android.synthetic.main.movie_poster.view.*
 
 class MoviesAdapter(private val listener: (Movie) -> Unit) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
@@ -32,7 +32,7 @@ class MoviesAdapter(private val listener: (Movie) -> Unit) : RecyclerView.Adapte
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(movie: Movie) {
-            itemView.moviePoster.loadUrl("https://image.tmdb.org/t/p/w185/${movie.posterPath}")
+            itemView.moviePoster.loadImage(movie.posterPath)
             itemView.moviePuntuation.text = movie.voteAverage.toString()
         }
     }
