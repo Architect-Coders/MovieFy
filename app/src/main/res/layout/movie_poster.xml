@@ -30,27 +30,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageViewMovieListItemStar"
-        android:layout_width="37dp"
-        android:layout_height="37dp"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/one_grid_unit"
-        android:src="@drawable/ic_star"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/moviePuntuation"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size_ten"
-        android:textColor="@color/colorAccent"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewMovieListItemStar"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewMovieListItemStar"
-        app:layout_constraintStart_toStartOf="@+id/imageViewMovieListItemStar"
-        app:layout_constraintTop_toTopOf="@+id/imageViewMovieListItemStar" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/imageViewMovieListItemStar"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/one_grid_unit"
+            android:src="@drawable/ic_star"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/moviePuntuation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_size_ten"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewMovieListItemStar"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewMovieListItemStar"
+            app:layout_constraintStart_toStartOf="@+id/imageViewMovieListItemStar"
+            app:layout_constraintTop_toTopOf="@+id/imageViewMovieListItemStar" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

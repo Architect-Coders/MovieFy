@@ -33,7 +33,17 @@ class MoviesAdapter(private val listener: (Movie) -> Unit) : RecyclerView.Adapte
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(movie: Movie) {
             itemView.moviePoster.loadImage(movie.posterPath)
-            itemView.moviePuntuation.text = movie.voteAverage.toString()
+
+            if(checkIfNeedShowStar(movie.voteAverage)) {
+                itemView.start.visibility = View.VISIBLE
+                itemView.moviePuntuation.text = movie.voteAverage.toString()
+            }else{
+                itemView.start.visibility = View.INVISIBLE
+            }
+        }
+
+        private fun checkIfNeedShowStar(average: Double) : Boolean{
+            return average >= 7.0
         }
     }
 }
