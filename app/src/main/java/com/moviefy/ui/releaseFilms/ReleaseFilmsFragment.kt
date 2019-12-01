@@ -14,33 +14,25 @@ import com.moviefy.ui.navigator.Navigator
 
 class ReleaseFilmsFragment : Fragment(), ReleaseFilmsPresenter.View {
 
-    private var presenter: ReleaseFilmsPresenter? = null
-    private var adapter: MoviesAdapter? = null
+    private val presenter by lazy { ReleaseFilmsPresenter(MoviesRepository(activity!!)) }
+    private val adapter = MoviesAdapter(presenter::onMovieClicked)
 
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_home, parent, false)
 
-        presenter = ReleaseFilmsPresenter(MoviesRepository(activity!!))
-
-        presenter?.let { presenter ->
-            presenter.onCreate(this)
-            adapter = MoviesAdapter(presenter::onMovieClicked)
-        }
+        presenter.onCreate(this)
+        recycler.adapter = adapter
 
         return rootView
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        recycler.adapter = adapter
-    }
-
     override fun onDestroy() {
-        presenter?.onDestroy()
+        presenter.onDestroy()
         super.onDestroy()
     }
 
     override fun updateData(movies: List<Movie>) {
-        adapter?.movies = movies
+        adapter.movies = movies
     }
 
     override fun showProgress() {
