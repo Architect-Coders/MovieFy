@@ -1,6 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <include
+        android:id="@+id/include"
+        layout="@layout/generic_toolbar" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        app:layout_constraintTop_toBottomOf="@+id/include"
+        tools:layout_editor_absoluteX="16dp"/>
+
+    <ImageView
+        android:id="@+id/imageViewMovieListItemStar"
+        android:layout_width="@dimen/five_grid_unit"
+        android:layout_height="@dimen/five_grid_unit"
+        android:layout_marginTop="288dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_star"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+    <TextView
+        android:id="@+id/moviePuntuation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_ten"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewMovieListItemStar"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewMovieListItemStar"
+        app:layout_constraintStart_toStartOf="@+id/imageViewMovieListItemStar"
+        app:layout_constraintTop_toTopOf="@+id/imageViewMovieListItemStar" />
+
+    <TextView
+        android:id="@+id/movieDescriptionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="Descripcion:"
+        android:textSize="@dimen/text_size_sixteen"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/movieDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="@dimen/activity_standard_margin"
+        android:layout_marginEnd="@dimen/activity_standard_margin"
+        android:textSize="@dimen/text_size_twelve"
+        android:text="asfasfasdfasdfasdfa asdf asf as asdf  asdf as df as dfsd fasd asdf asdf asdfasdf as fasd fsd fs fdasdf asdf sad fsd fasd fkalsfd asdkfj sldfj asldkfj aslkdfj as lkasjdf lskdfj "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieDescriptionTitle" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

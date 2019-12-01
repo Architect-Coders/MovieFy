@@ -5,11 +5,7 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 import com.moviefy.R
 
-class AspectRatioImageView @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : AppCompatImageView(context, attrs, defStyleAttr) {
+class AspectRatioImageView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatImageView(context, attrs, defStyleAttr) {
 
     private var ratio: Float = DEFAULT_RATIO
 
