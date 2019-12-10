@@ -27,7 +27,7 @@ class ReleaseFilmsPresenter(private val moviesRepository: MoviesRepository) : Sc
         }
     }
 
-    fun onMovieClicked(movie: Movie) {
+    fun onMovieClicked(movie: Movie, favourite: Boolean) {
         view?.navigateTo(movie)
     }
 

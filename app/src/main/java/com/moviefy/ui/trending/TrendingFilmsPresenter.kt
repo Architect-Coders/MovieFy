@@ -27,7 +27,7 @@ class TrendingFilmsPresenter(private val moviesRepository: MoviesRepository) : S
         }
     }
 
-    fun onMovieClicked(movie: Movie) {
+    fun onMovieClicked(movie: Movie, isSave: Boolean) {
         view?.navigateTo(movie)
     }
 

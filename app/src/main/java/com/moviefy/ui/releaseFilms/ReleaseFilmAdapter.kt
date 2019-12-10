@@ -10,7 +10,7 @@ import com.moviefy.ui.common.inflate
 import com.moviefy.ui.common.loadImage
 import kotlinx.android.synthetic.main.movie_poster.view.*
 
-class MoviesAdapter(private val listener: (Movie) -> Unit) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
+class MoviesAdapter(private val listener: (Movie, Boolean) -> Unit) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
     var movies: List<Movie> by basicDiffUtil(
         emptyList(),
@@ -27,7 +27,13 @@ class MoviesAdapter(private val listener: (Movie) -> Unit) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = movies[position]
         holder.bind(movie)
-        holder.itemView.setOnClickListener { listener(movie) }
+        holder.itemView.setOnClickListener { listener(movie, false) }
+
+        holder.itemView.imageViewMovieListItemFavorite.setOnClickListener {
+            holder.itemView.imageViewMovieListItemFavorite.isActivated = !holder.itemView.imageViewMovieListItemFavorite.isActivated
+            listener(movie, true)
+        }
+
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

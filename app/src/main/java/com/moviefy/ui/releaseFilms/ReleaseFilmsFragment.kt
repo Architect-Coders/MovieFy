@@ -24,7 +24,9 @@ class ReleaseFilmsFragment : Fragment(), ReleaseFilmsPresenter.View {
 
         presenter?.let { presenter ->
             presenter.onCreate(this)
-            adapter = MoviesAdapter(presenter::onMovieClicked)
+            adapter = MoviesAdapter{movie, isSave ->
+                presenter.onMovieClicked(movie, isSave)
+            }
         }
 
         return rootView
