@@ -32,7 +32,9 @@ class DetailMovie: GenericToolbarActivity(), DetailMoviePresenter.View {
     override fun updateUI(movie: Movie) {
         configureActionBar(movie.title)
 
+        movie.posterPath?.let {
         posterFilm.loadImage(movie.posterPath)
+        }
         moviePuntuation.text = movie.voteAverage.toString()
         movieDescription.text = movie.overview
 

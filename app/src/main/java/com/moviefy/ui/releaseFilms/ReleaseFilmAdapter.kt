@@ -32,7 +32,10 @@ class MoviesAdapter(private val listener: (Movie) -> Unit) : RecyclerView.Adapte
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(movie: Movie) {
-            itemView.moviePoster.loadImage(movie.posterPath)
+
+            movie.posterPath?.let {
+                itemView.moviePoster.loadImage(movie.posterPath)
+            }
 
             if(checkIfNeedShowStar(movie.voteAverage)) {
                 itemView.start.visibility = View.VISIBLE
