@@ -3,8 +3,9 @@ package com.moviefy.ui.releaseFilms
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+
 import com.moviefy.R
-import com.moviefy.model.Movie
+import com.moviefy.data.database.Movie
 import com.moviefy.ui.common.basicDiffUtil
 import com.moviefy.ui.common.inflate
 import com.moviefy.ui.common.loadImage

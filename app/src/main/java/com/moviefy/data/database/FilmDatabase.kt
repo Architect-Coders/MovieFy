@@ -1,7 +1,6 @@
-package com.moviefy.model.database
+package com.moviefy.data.database
 
 import androidx.room.*
-import com.moviefy.model.Movie
 
 @Database(entities = [Movie::class], version = 1)
 abstract class FilmDatabase : RoomDatabase() {
@@ -11,7 +10,7 @@ abstract class FilmDatabase : RoomDatabase() {
 
 @Dao
 interface FilmDao {
-    @Query("SELECT * FROM movie ORDER BY uid")
+    @Query("SELECT * FROM movie ORDER BY id")
     fun loadAllFilms(): List<Movie>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

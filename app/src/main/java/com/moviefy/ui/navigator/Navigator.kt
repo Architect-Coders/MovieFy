@@ -1,8 +1,7 @@
 package com.moviefy.ui.navigator
 
-import android.app.Activity
 import androidx.fragment.app.FragmentActivity
-import com.moviefy.model.Movie
+import com.moviefy.data.database.Movie
 import com.moviefy.ui.common.startActivity
 import com.moviefy.ui.detailMovie.DetailMovie
 

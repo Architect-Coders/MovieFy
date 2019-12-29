@@ -1,9 +1,8 @@
 package com.moviefy
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
-import com.moviefy.model.database.FilmDatabase
+import com.moviefy.data.database.FilmDatabase
 
 class MovieApplication : Application() {
 

@@ -1,6 +1,7 @@
 package com.moviefy.ui.detailMovie
 
-import com.moviefy.model.Movie
+import com.moviefy.data.database.Movie
+
 
 class DetailMoviePresenter{
 

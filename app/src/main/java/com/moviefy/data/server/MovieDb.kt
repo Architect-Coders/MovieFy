@@ -1,4 +1,4 @@
-package com.moviefy.model
+package com.moviefy.data.server
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient

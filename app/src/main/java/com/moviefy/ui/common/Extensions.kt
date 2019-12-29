@@ -18,7 +18,7 @@ import kotlin.properties.Delegates
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = true): View =
     LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 
-fun ImageView.loadImage(itemFilm: String) {
+fun ImageView.loadImage(itemFilm: String?) {
     Glide.with(context).load("https://image.tmdb.org/t/p/w185/${itemFilm}").into(this)
 }
 

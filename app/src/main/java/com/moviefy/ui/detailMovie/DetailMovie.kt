@@ -2,7 +2,7 @@ package com.moviefy.ui.detailMovie
 
 import android.os.Bundle
 import com.moviefy.R
-import com.moviefy.model.Movie
+import com.moviefy.data.database.Movie
 import com.moviefy.ui.base.GenericToolbarActivity
 import com.moviefy.ui.common.loadImage
 import kotlinx.android.synthetic.main.movie_detail.*

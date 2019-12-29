@@ -5,13 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.room.Room
-import com.moviefy.model.Movie
-import com.moviefy.model.MoviesRepository
+import com.e.data.repository.DateRepository
+import com.e.data.repository.MoviesRepository
+import com.e.data.repository.RegionRepository
+import com.e.usecases.GetReleasesMovies
 import kotlinx.android.synthetic.main.fragment_home.*
 import com.moviefy.R
-import com.moviefy.model.database.FavouriteRepository
-import com.moviefy.model.database.FilmDatabase
+import com.moviefy.data.AndroidPermissionChecker
+import com.moviefy.data.PlayServicesLocationDatasource
+import com.moviefy.data.database.FavouriteDataSource
+import com.moviefy.data.database.Movie
+import com.moviefy.data.server.MovieDataSource
 import com.moviefy.ui.common.app
 import com.moviefy.ui.common.showToast
 import com.moviefy.ui.navigator.Navigator
@@ -25,7 +29,16 @@ class ReleaseFilmsFragment : Fragment(), ReleaseFilmsPresenter.View {
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_home, parent, false)
 
-        presenter = ReleaseFilmsPresenter(MoviesRepository(activity!!), FavouriteRepository(activity!!.app))
+        presenter = ReleaseFilmsPresenter(GetReleasesMovies(MoviesRepository(
+            activity!!.app.getString(R.string.apy_key),
+            MovieDataSource(),
+            DateRepository(),
+            RegionRepository(
+                PlayServicesLocationDatasource(activity!!.app),
+                AndroidPermissionChecker(activity!!.app)
+            )
+            )
+        ), FavouriteDataSource(activity!!.app.database))
 
         presenter?.let { presenter ->
             presenter.onCreate(this)

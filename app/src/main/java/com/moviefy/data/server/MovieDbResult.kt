@@ -1,10 +1,8 @@
-package com.moviefy.model
+package com.moviefy.data.server
 
-import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 
 data class MovieDbResult(
     val page: Int,
@@ -14,7 +12,6 @@ data class MovieDbResult(
 )
 
 @Entity(tableName = "movie")
-@Parcelize
 data class Movie(
     @PrimaryKey(autoGenerate = true) val uid: Int?,
     val adult: Boolean,
@@ -28,6 +25,5 @@ data class Movie(
     @SerializedName("release_date") val releaseDate: String,
     val title: String,
     val video: Boolean,
-    @SerializedName("vote_average") val voteAverage: Double,
-    @SerializedName("vote_count") val voteCount: Int
-) : Parcelable
+    @SerializedName("vote_average") val voteAverage: Double
+)

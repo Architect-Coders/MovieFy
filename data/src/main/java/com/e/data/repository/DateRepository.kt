@@ -1,4 +1,4 @@
-package com.moviefy.model
+package com.e.data.repository
 
 import java.text.SimpleDateFormat
 import java.util.*
