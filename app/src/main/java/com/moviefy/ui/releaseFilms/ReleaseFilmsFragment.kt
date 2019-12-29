@@ -5,10 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.room.Room
 import com.moviefy.model.Movie
 import com.moviefy.model.MoviesRepository
 import kotlinx.android.synthetic.main.fragment_home.*
 import com.moviefy.R
+import com.moviefy.model.database.FavouriteRepository
+import com.moviefy.model.database.FilmDatabase
+import com.moviefy.ui.common.app
+import com.moviefy.ui.common.showToast
 import com.moviefy.ui.navigator.Navigator
 
 
@@ -20,12 +25,12 @@ class ReleaseFilmsFragment : Fragment(), ReleaseFilmsPresenter.View {
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_home, parent, false)
 
-        presenter = ReleaseFilmsPresenter(MoviesRepository(activity!!))
+        presenter = ReleaseFilmsPresenter(MoviesRepository(activity!!), FavouriteRepository(activity!!.app))
 
         presenter?.let { presenter ->
             presenter.onCreate(this)
-            adapter = MoviesAdapter{movie, isSave ->
-                presenter.onMovieClicked(movie, isSave)
+            adapter = MoviesAdapter{movie, isSave, openDetail ->
+                presenter.onMovieClicked(movie, isSave, openDetail)
             }
         }
 
@@ -59,5 +64,11 @@ class ReleaseFilmsFragment : Fragment(), ReleaseFilmsPresenter.View {
         progressBar.visibility = View.INVISIBLE
     }
 
+    override fun saveInFavourites() {
+        activity?.showToast(getString(R.string.movie_save_favourite))
+    }
 
+    override fun removeFromFavourites() {
+        activity?.showToast(getString(R.string.movie_remove_favourite))
+    }
 }

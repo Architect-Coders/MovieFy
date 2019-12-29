@@ -26,8 +26,8 @@ class TrendingMoviesFragment : Fragment(), TrendingFilmsPresenter.View {
 
         presenter?.let { presenter ->
             presenter.onCreate(this)
-            adapter = MoviesAdapter{movie, isSave ->
-                presenter.onMovieClicked(movie, isSave)
+            adapter = MoviesAdapter{movie, isSave, isOpenDetail ->
+                presenter.onMovieClicked(movie, isSave, isOpenDetail)
             }
         }
 

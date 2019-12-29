@@ -1,20 +1,25 @@
 package com.moviefy.model.database
 
+import com.moviefy.MovieApplication
 import com.moviefy.model.Movie
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-object FavouriteRepository: FavouriteMovieModel{
+class FavouriteRepository(application: MovieApplication){
 
-    private lateinit var database: FilmDatabase
+    private val database = application.database
 
-    override fun getFavourites(): ArrayList<Movie>{
-        return ArrayList(database.filmDao().loadAllFilms())
+    suspend fun getFavourites(): List<Movie> = withContext(Dispatchers.IO){
+        with(database.filmDao()) {
+            loadAllFilms()
+        }
     }
 
-    override fun addFavourite(film: Movie) {
+    suspend fun addFavourite(film: Movie) = withContext(Dispatchers.IO){
         database.filmDao().insertFilm(film)
     }
 
-    override fun removeFavourites(film: Movie) {
+    suspend fun removeFavourites(film: Movie) = withContext(Dispatchers.IO){
         database.filmDao().deleteFilm(film)
     }
 }

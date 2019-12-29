@@ -13,6 +13,8 @@ class FavouriteFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.favourite_fragment, parent, false)
+
+
         return rootView
     }
 }

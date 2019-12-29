@@ -2,22 +2,17 @@ package com.moviefy
 
 import android.app.Application
 import android.content.Context
+import androidx.room.Room
+import com.moviefy.model.database.FilmDatabase
 
 class MovieApplication : Application() {
 
-    init {
-        instance = this
-    }
-
-    companion object {
-        private var instance: MovieApplication? = null
-
-        fun applicationContext() : Context {
-            return instance!!.applicationContext
-        }
-    }
+    lateinit var database: FilmDatabase
+        private set
 
     override fun onCreate() {
         super.onCreate()
+
+        database = Room.databaseBuilder(this, FilmDatabase::class.java, "list-master-db").build()
     }
 }
