@@ -1,6 +1,7 @@
 package com.e.data.repository
 
 import com.e.data.source.LocationDataSource
+import com.e.data.source.PermissionChecker
 
 class RegionRepository(private val locationDataSource: LocationDataSource, private val permissionChecker: PermissionChecker) {
 
@@ -15,11 +16,4 @@ class RegionRepository(private val locationDataSource: LocationDataSource, priva
             DEFAULT_REGION
         }
     }
-}
-
-interface PermissionChecker {
-
-    enum class Permission { COARSE_LOCATION }
-
-    suspend fun check(permission: Permission): Boolean
 }

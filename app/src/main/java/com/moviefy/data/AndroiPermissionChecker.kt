@@ -3,7 +3,7 @@ package com.moviefy.data
 import android.app.Application
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
-import com.e.data.repository.PermissionChecker
+import com.e.data.source.PermissionChecker
 
 class AndroidPermissionChecker(private val application: Application) : PermissionChecker {
 
