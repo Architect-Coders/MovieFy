@@ -13,8 +13,10 @@ import com.e.data.repository.RegionRepository
 import com.e.usecases.FindTrendingMovies
 import com.moviefy.data.AndroidPermissionChecker
 import com.moviefy.data.PlayServicesLocationDatasource
+import com.moviefy.data.database.FavouriteDataSource
 import com.moviefy.data.server.MovieDataSource
 import com.moviefy.ui.common.app
+import com.moviefy.ui.common.showToast
 import com.moviefy.ui.navigator.Navigator
 import com.moviefy.ui.releaseFilms.MoviesAdapter
 import kotlinx.android.synthetic.main.trending_movies_fragment.*
@@ -27,7 +29,6 @@ class TrendingMoviesFragment : Fragment(), TrendingFilmsPresenter.View {
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.trending_movies_fragment, parent, false)
 
-
         presenter = TrendingFilmsPresenter(FindTrendingMovies(MoviesRepository(
             activity!!.app.getString(R.string.apy_key),
             MovieDataSource(),
@@ -36,8 +37,7 @@ class TrendingMoviesFragment : Fragment(), TrendingFilmsPresenter.View {
                 PlayServicesLocationDatasource(activity!!.app),
                 AndroidPermissionChecker(activity!!.app)
             )
-        )))
-
+        )), FavouriteDataSource(activity!!.app.database))
 
         presenter?.let { presenter ->
             presenter.onCreate(this)
@@ -74,5 +74,13 @@ class TrendingMoviesFragment : Fragment(), TrendingFilmsPresenter.View {
 
     override fun hideProgress() {
         progressBarPopularMovies.visibility = View.INVISIBLE
+    }
+
+    override fun saveInFavourites() {
+        activity?.showToast(getString(R.string.movie_save_favourite))
+    }
+
+    override fun removeFromFavourites() {
+        activity?.showToast(getString(R.string.movie_remove_favourite))
     }
 }
