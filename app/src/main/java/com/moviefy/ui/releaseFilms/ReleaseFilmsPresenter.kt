@@ -4,7 +4,7 @@ import com.e.usecases.GetReleasesMovies
 import com.moviefy.data.database.FavouriteDataSource
 import com.moviefy.data.database.Movie
 import com.moviefy.data.toDomainMovie
-import com.moviefy.data.toRoomMovie
+import com.moviefy.data.toMovieUi
 import com.moviefy.ui.common.Scope
 import kotlinx.coroutines.launch
 
@@ -27,7 +27,7 @@ class ReleaseFilmsPresenter(private val getReleasesMovies: GetReleasesMovies, pr
 
         launch {
             view.showProgress()
-            view.updateData(getReleasesMovies().map { it.toRoomMovie() })
+            view.updateData(getReleasesMovies().map { it.toMovieUi() })
             view.hideProgress()
         }
     }

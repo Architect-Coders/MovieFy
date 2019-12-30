@@ -4,7 +4,7 @@ import com.moviefy.data.database.Movie
 import com.e.usecases.FindTrendingMovies
 import com.moviefy.data.database.FavouriteDataSource
 import com.moviefy.data.toDomainMovie
-import com.moviefy.data.toRoomMovie
+import com.moviefy.data.toMovieUi
 import com.moviefy.ui.common.Scope
 import kotlinx.coroutines.launch
 
@@ -27,7 +27,7 @@ class TrendingFilmsPresenter(private val findeTrendingMovies: FindTrendingMovies
 
         launch {
             view.showProgress()
-            view.updateData(findeTrendingMovies().map { it.toRoomMovie() })
+            view.updateData(findeTrendingMovies().map { it.toMovieUi() })
             view.hideProgress()
         }
     }

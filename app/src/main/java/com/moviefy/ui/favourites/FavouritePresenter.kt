@@ -2,7 +2,7 @@ package com.moviefy.ui.favourites
 
 import com.e.usecases.GetFavouritesMovies
 import com.moviefy.data.database.Movie
-import com.moviefy.data.toRoomMovie
+import com.moviefy.data.toMovieUi
 import com.moviefy.ui.common.Scope
 import kotlinx.coroutines.launch
 
@@ -27,7 +27,7 @@ class FavouritePresenter(private val getFavouritesMovies: GetFavouritesMovies): 
             view.showProgress()
 
             if(getFavouritesMovies().isNotEmpty()){
-                view.updateData(getFavouritesMovies().map { it.toRoomMovie() })
+                view.updateData(getFavouritesMovies().map { it.toMovieUi() })
             }else{
                 view.emptyFavourites()
             }

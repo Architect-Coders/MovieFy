@@ -4,7 +4,7 @@ import com.e.domain.Movie
 import com.moviefy.data.database.Movie as DomainMovie
 import com.moviefy.data.server.Movie as ServerMovie
 
-fun Movie.toRoomMovie(): DomainMovie =
+fun Movie.toMovieUi(): DomainMovie =
     DomainMovie(
         uid,
         id,
@@ -33,7 +33,7 @@ fun DomainMovie.toDomainMovie(): Movie = Movie(
     voteAverage = voteAverage
 )
 
-fun ServerMovie.toDomainMovie(): Movie =
+fun ServerMovie.toServerToDomain(): Movie =
     Movie(
         0,
         id,

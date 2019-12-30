@@ -2,7 +2,7 @@ package com.moviefy.data.server
 
 import com.e.data.source.RemoteDataSource
 import com.e.domain.Movie
-import com.moviefy.data.toDomainMovie
+import com.moviefy.data.toServerToDomain
 
 class MovieDataSource: RemoteDataSource {
 
@@ -16,7 +16,7 @@ class MovieDataSource: RemoteDataSource {
                 withReleaseDate = finalReleaseFilmDate,
                 withReleaseType = releaseType).await()
             .results
-            .map { it.toDomainMovie() }
+            .map { it.toServerToDomain() }
 
     override suspend fun findTrendingMovies(apiKey: String, region: String, certification: String, voteAverage: String): List<Movie> =
         MovieDb.service
@@ -27,5 +27,5 @@ class MovieDataSource: RemoteDataSource {
                 sortBy = voteAverage
             ).await()
             .results
-            .map { it.toDomainMovie() }
+            .map { it.toServerToDomain() }
 }
