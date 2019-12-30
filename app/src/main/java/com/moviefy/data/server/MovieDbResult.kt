@@ -1,6 +1,5 @@
 package com.moviefy.data.server
 
-import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 
 data class MovieDbResult(
@@ -10,7 +9,6 @@ data class MovieDbResult(
     @SerializedName("total_results") val totalResults: Int
 )
 
-@Entity(tableName = "movie")
 data class Movie(
     val adult: Boolean,
     @SerializedName("backdrop_path") val backdropPath: String?,
