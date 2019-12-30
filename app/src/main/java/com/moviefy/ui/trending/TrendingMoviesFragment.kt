@@ -5,9 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.e.data.repository.DateRepository
 import com.moviefy.R
-import com.moviefy.data.server.Movie
+import com.moviefy.data.database.Movie
 import com.e.data.repository.MoviesRepository
+import com.e.data.repository.RegionRepository
+import com.e.usecases.FindTrendingMovies
+import com.moviefy.data.AndroidPermissionChecker
+import com.moviefy.data.PlayServicesLocationDatasource
+import com.moviefy.data.server.MovieDataSource
+import com.moviefy.ui.common.app
 import com.moviefy.ui.navigator.Navigator
 import com.moviefy.ui.releaseFilms.MoviesAdapter
 import kotlinx.android.synthetic.main.trending_movies_fragment.*
@@ -20,16 +27,22 @@ class TrendingMoviesFragment : Fragment(), TrendingFilmsPresenter.View {
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.trending_movies_fragment, parent, false)
 
-//        presenter = TrendingFilmsPresenter(
-//            MoviesRepository(
-//                activity!!
-//            )
-//        )
+
+        presenter = TrendingFilmsPresenter(FindTrendingMovies(MoviesRepository(
+            activity!!.app.getString(R.string.apy_key),
+            MovieDataSource(),
+            DateRepository(),
+            RegionRepository(
+                PlayServicesLocationDatasource(activity!!.app),
+                AndroidPermissionChecker(activity!!.app)
+            )
+        )))
+
 
         presenter?.let { presenter ->
             presenter.onCreate(this)
             adapter = MoviesAdapter{movie, isSave, isOpenDetail ->
-//                presenter.onMovieClicked(movie, isSave, isOpenDetail)
+                presenter.onMovieClicked(movie, isSave, isOpenDetail)
             }
         }
 
@@ -46,7 +59,7 @@ class TrendingMoviesFragment : Fragment(), TrendingFilmsPresenter.View {
     }
 
     override fun updateData(movies: List<Movie>) {
-//        adapter?.movies = movies
+        adapter?.movies = movies
     }
 
     override fun showProgress() {
@@ -55,7 +68,7 @@ class TrendingMoviesFragment : Fragment(), TrendingFilmsPresenter.View {
 
     override fun navigateTo(movie: Movie) {
         activity?.let {activity ->
-//            Navigator.MovieDetail.openDetail(activity, movie)
+            Navigator.MovieDetail.openDetail(activity, movie)
         }
     }
 

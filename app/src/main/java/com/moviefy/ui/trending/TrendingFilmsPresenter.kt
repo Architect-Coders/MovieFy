@@ -1,11 +1,12 @@
 package com.moviefy.ui.trending
 
-import com.moviefy.data.server.Movie
-import com.e.data.repository.MoviesRepository
+import com.moviefy.data.database.Movie
+import com.e.usecases.FindTrendingMovies
+import com.moviefy.data.toRoomMovie
 import com.moviefy.ui.common.Scope
 import kotlinx.coroutines.launch
 
-class TrendingFilmsPresenter(private val moviesRepository: MoviesRepository) : Scope by Scope.Impl() {
+class TrendingFilmsPresenter(private val findeTrendingMovies: FindTrendingMovies) : Scope by Scope.Impl() {
 
     interface View {
         fun showProgress()
@@ -20,11 +21,11 @@ class TrendingFilmsPresenter(private val moviesRepository: MoviesRepository) : S
         initScope()
         this.view = view
 
-//        launch {
-//            view.showProgress()
-//            view.updateData(moviesRepository.findTrendingFilms().results)
-//            view.hideProgress()
-//        }
+        launch {
+            view.showProgress()
+            view.updateData(findeTrendingMovies().map { it.toRoomMovie() })
+            view.hideProgress()
+        }
     }
 
     fun onMovieClicked(movie: Movie, isSave: Boolean, isOpenDetail: Boolean) {

@@ -18,21 +18,19 @@ class MoviesRepository(
     suspend fun getReleaseFilms(): List<Movie> {
 
         return remoteDataSource.listReleaseFilms(
-            apikey,
-            regionRepository.findLastRegion(),
-            dateRepository.releaseFilmDate(),
-            dateRepository.finalReleaseFilmDate(),
-            dateRepository.releaseType())
+            apiKey = apikey,
+            region = regionRepository.findLastRegion(),
+            releaseFilmDate = dateRepository.releaseFilmDate(),
+            finalReleaseFilmDate = dateRepository.finalReleaseFilmDate(),
+            releaseType = dateRepository.releaseType())
     }
 
-
-//    suspend fun findTrendingFilms() =
-//        MovieDb.service
-//            .listTrendingMoviesAsync(
-//                apiKey,
-//                regionRepository.findLastRegion(),
-//                CERTIFICATION,
-//                VOTEAVERAGE
-//            )
-//            .await()
+    suspend fun findTrendingFilms(): List<Movie>{
+        return remoteDataSource.findTrendingMovies(
+            apiKey = apikey,
+            region = regionRepository.findLastRegion(),
+            certification = CERTIFICATION,
+            voteAverage = VOTEAVERAGE
+        )
+    }
 }
