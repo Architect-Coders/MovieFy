@@ -16,7 +16,8 @@ fun Movie.toMovieUi(): DomainMovie =
         originalLanguage,
         originalTitle,
         popularity,
-        voteAverage
+        voteAverage,
+        favourite
     )
 
 fun DomainMovie.toDomainMovie(): Movie = Movie(
@@ -30,7 +31,9 @@ fun DomainMovie.toDomainMovie(): Movie = Movie(
     originalLanguage = originalLanguage,
     originalTitle = originalTitle,
     popularity = popularity,
-    voteAverage = voteAverage
+    voteAverage = voteAverage,
+    favourite = favourite
+
 )
 
 fun ServerMovie.toServerToDomain(): Movie =
@@ -45,5 +48,6 @@ fun ServerMovie.toServerToDomain(): Movie =
         originalLanguage,
         originalTitle,
         popularity,
-        voteAverage
+        voteAverage,
+        false
     )

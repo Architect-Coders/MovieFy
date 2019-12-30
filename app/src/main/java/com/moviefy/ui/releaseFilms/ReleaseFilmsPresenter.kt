@@ -40,9 +40,11 @@ class ReleaseFilmsPresenter(private val getReleasesMovies: GetReleasesMovies, pr
 
         launch {
             if (favourite) {
+                movie.favourite = true
                 favouriteRepository.addFavourite(movie.toDomainMovie())
                 view?.saveInFavourites()
             } else {
+                movie.favourite = false
                 favouriteRepository.removeFavourites(movie.toDomainMovie())
                 view?.removeFromFavourites()
             }

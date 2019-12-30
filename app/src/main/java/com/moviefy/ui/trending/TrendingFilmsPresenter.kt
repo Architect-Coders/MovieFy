@@ -40,9 +40,11 @@ class TrendingFilmsPresenter(private val findeTrendingMovies: FindTrendingMovies
 
         launch {
             if (isFavourite) {
+                movie.favourite = true
                 favouriteRepository.addFavourite(movie.toDomainMovie())
                 view?.saveInFavourites()
             } else {
+                movie.favourite = false
                 favouriteRepository.removeFavourites(movie.toDomainMovie())
                 view?.removeFromFavourites()
             }

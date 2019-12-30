@@ -3,7 +3,7 @@ package com.moviefy.data.database
 import com.e.data.source.FavouriteDataSource
 import com.e.domain.Movie
 import com.moviefy.data.toDomainMovie
-import com.moviefy.data.toRoomMovie
+import com.moviefy.data.toMovieUi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -15,10 +15,10 @@ class FavouriteDataSource(data: FilmDatabase): FavouriteDataSource {
     }
 
     override suspend fun addFavourite(film: Movie) = withContext(Dispatchers.IO) {
-        database.insertFilm(film.toRoomMovie())
+        database.insertFilm(film.toMovieUi())
     }
 
     override suspend fun removeFavourites(film: Movie) = withContext(Dispatchers.IO) {
-        database.deleteFilm(film.toRoomMovie())
+        database.deleteFilm(film.toMovieUi())
     }
 }

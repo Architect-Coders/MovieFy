@@ -28,6 +28,10 @@ class MoviesAdapter(private val listener: (Movie, Boolean, Boolean) -> Unit) : R
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = movies[position]
         holder.bind(movie)
+
+
+        holder.itemView.imageViewMovieListItemFavorite.isActivated = movie.favourite
+
         holder.itemView.moviePoster.setOnClickListener {
             listener(movie, false, true)
         }
