@@ -14,6 +14,7 @@ class FavouritePresenter(private val getFavouritesMovies: GetFavouritesMovies): 
         fun hideProgress()
         fun updateData(movies: List<Movie>)
         fun navigateTo(movie: Movie)
+        fun emptyFavourites()
     }
 
     private var view: View? = null
@@ -24,7 +25,13 @@ class FavouritePresenter(private val getFavouritesMovies: GetFavouritesMovies): 
 
         launch {
             view.showProgress()
-            view.updateData(getFavouritesMovies().map { it.toRoomMovie() })
+
+            if(getFavouritesMovies().isNotEmpty()){
+                view.updateData(getFavouritesMovies().map { it.toRoomMovie() })
+            }else{
+                view.emptyFavourites()
+            }
+
             view.hideProgress()
         }
     }

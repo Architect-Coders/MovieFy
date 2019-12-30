@@ -19,6 +19,7 @@ import com.moviefy.data.database.FilmDatabase
 import com.moviefy.data.database.Movie
 import com.moviefy.data.server.MovieDataSource
 import com.moviefy.ui.common.app
+import com.moviefy.ui.common.showToast
 import com.moviefy.ui.navigator.Navigator
 import com.moviefy.ui.releaseFilms.MoviesAdapter
 import com.moviefy.ui.trending.TrendingFilmsPresenter
@@ -66,6 +67,15 @@ class FavouriteFragment : Fragment(), FavouritePresenter.View {
 
     override fun updateData(movies: List<Movie>) {
         adapter?.movies = movies
+    }
+
+    override fun emptyFavourites() {
+        txEmptyFavourite.visibility = View.VISIBLE
+    }
+
+    override fun onDestroy() {
+        presenter?.onDestroy()
+        super.onDestroy()
     }
 
     override fun navigateTo(movie: Movie) {

@@ -20,7 +20,7 @@ class MovieDataSource: RemoteDataSource {
 
     override suspend fun findTrendingMovies(apiKey: String, region: String, certification: String, voteAverage: String): List<Movie> =
         MovieDb.service
-            .findTrendingMovies(
+            .findTrendingMoviesAsync(
                 apiKey = apiKey,
                 region = region,
                 certification = certification,

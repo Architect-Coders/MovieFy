@@ -16,7 +16,7 @@ interface TheMovieDbService {
         ): Deferred<MovieDbResult>
 
     @GET("discover/movie?")
-    fun findTrendingMovies(
+    fun findTrendingMoviesAsync(
         @Query("api_key") apiKey: String,
         @Query("countryId") region: String,
         @Query("certification") certification: String,

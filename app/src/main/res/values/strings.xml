@@ -6,5 +6,6 @@
     <string name="movie_description">Description:</string>
     <string name="movie_save_favourite">Your movie has been save</string>
     <string name="movie_remove_favourite">Your movie has been remove</string>
+    <string name="empty_favourites">Your don\'t have any movie save</string>
 
 </resources>
