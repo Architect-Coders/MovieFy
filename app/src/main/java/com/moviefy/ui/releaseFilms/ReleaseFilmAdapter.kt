@@ -23,7 +23,9 @@ class MoviesAdapter(private val listener: (Movie, Boolean, Boolean) -> Unit) : R
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int = movies.size
+    override fun getItemCount(): Int {
+        return movies.size
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = movies[position]
