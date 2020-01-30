@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.moviefy.R
 import com.moviefy.data.database.Movie
+import com.moviefy.ui.common.showToast
 import com.moviefy.ui.navigator.Navigator
 import com.moviefy.ui.releaseFilms.MoviesAdapter
 import kotlinx.android.synthetic.main.favourite_fragment.*
@@ -17,20 +18,10 @@ import org.koin.core.parameter.parametersOf
 class FavouriteFragment : Fragment(), FavouritePresenter.View {
 
     private val presenter: FavouritePresenter by inject { parametersOf(this) }
-//    private var presenter: FavouritePresenter? = null
     private var adapter: MoviesAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.favourite_fragment, parent, false)
-
-//        presenter = FavouritePresenter(
-//            GetFavouritesMovies(
-//                FavouriteRepository(
-//                    FavouriteDataSource(activity!!.app.database)
-//                )
-//            )
-//        )
-
 
         presenter.let { presenter ->
             presenter.onCreate(this)
@@ -71,5 +62,13 @@ class FavouriteFragment : Fragment(), FavouritePresenter.View {
         activity?.let {activity ->
             Navigator.MovieDetail.openDetail(activity, movie)
         }
+    }
+
+    override fun saveInFavourites() {
+        activity?.showToast(getString(R.string.movie_save_favourite))
+    }
+
+    override fun removeFromFavourites() {
+        activity?.showToast(getString(R.string.movie_remove_favourite))
     }
 }

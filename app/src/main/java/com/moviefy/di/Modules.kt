@@ -67,7 +67,6 @@ private val scopesModule = module {
     factory { GetReleasesMovies(get()) }
     single { RoomDataSource(get()) }
 
-
-    factory { (view: FavouritePresenter.View) -> FavouritePresenter(get()) }
+    factory { (view: FavouritePresenter.View) -> FavouritePresenter(get(), get()) }
     factory { GetFavouritesMovies(get()) }
 }
