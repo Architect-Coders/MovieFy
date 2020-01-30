@@ -1,6 +1,8 @@
 package com.moviefy.ui.releaseFilms
 
+import com.e.usecases.AddFavouriteMovie
 import com.e.usecases.GetReleasesMovies
+import com.e.usecases.RemoveFavouriteMovie
 import com.moviefy.data.database.RoomDataSource
 import com.moviefy.data.database.Movie
 import com.moviefy.data.toDomainMovie
@@ -8,7 +10,7 @@ import com.moviefy.data.toMovieUi
 import com.moviefy.ui.common.Scope
 import kotlinx.coroutines.launch
 
-class ReleaseFilmsPresenter(private val getReleasesMovies: GetReleasesMovies, private val favouriteRepository: RoomDataSource) : Scope by Scope.Impl() {
+class ReleaseFilmsPresenter(private val getReleasesMovies: GetReleasesMovies, private val removeMovie: RemoveFavouriteMovie, private val addFavouriteMovie: AddFavouriteMovie) : Scope by Scope.Impl() {
 
     interface View {
         fun showProgress()
@@ -41,11 +43,11 @@ class ReleaseFilmsPresenter(private val getReleasesMovies: GetReleasesMovies, pr
         launch {
             if (favourite) {
                 movie.favourite = true
-                favouriteRepository.addFavourite(movie.toDomainMovie())
+                addFavouriteMovie(movie.toDomainMovie())
                 view?.saveInFavourites()
             } else {
                 movie.favourite = false
-                favouriteRepository.removeFavourites(movie.toDomainMovie())
+                removeMovie(movie.toDomainMovie())
                 view?.removeFromFavourites()
             }
         }

@@ -1,6 +1,6 @@
 package com.e.usescases
 
-import com.e.data.repository.FavouriteRepository
+import com.e.data.repository.MoviesRepository
 import com.e.testshared.mockedMovie
 import com.e.usecases.GetFavouritesMovies
 import com.nhaarman.mockitokotlin2.whenever
@@ -15,13 +15,13 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class GetFavouritesMoviesTest {
     @Mock
-    lateinit var favouriteRepository: FavouriteRepository
+    lateinit var moviesRepository: MoviesRepository
 
     lateinit var getFavourites: GetFavouritesMovies
 
     @Before
     fun setUp() {
-        getFavourites = GetFavouritesMovies(favouriteRepository)
+        getFavourites = GetFavouritesMovies(moviesRepository)
     }
 
     @Test
@@ -29,7 +29,7 @@ class GetFavouritesMoviesTest {
         runBlocking {
 
             val movie = listOf(mockedMovie.copy())
-            whenever(favouriteRepository.getFavouritesMovies()).thenReturn(movie)
+            whenever(moviesRepository.getFavouritesMovies()).thenReturn(movie)
 
             val result = getFavourites.invoke()
 

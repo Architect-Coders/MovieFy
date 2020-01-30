@@ -2,16 +2,13 @@ package com.moviefy.di
 
 import android.app.Application
 import com.e.data.repository.DateRepository
-import com.e.data.repository.FavouriteRepository
 import com.e.data.repository.MoviesRepository
 import com.e.data.repository.RegionRepository
 import com.e.data.source.FavouriteDataSource
 import com.e.data.source.LocationDataSource
 import com.e.data.source.PermissionChecker
 import com.e.data.source.RemoteDataSource
-import com.e.usecases.FindTrendingMovies
-import com.e.usecases.GetFavouritesMovies
-import com.e.usecases.GetReleasesMovies
+import com.e.usecases.*
 import com.moviefy.R
 import com.moviefy.data.AndroidPermissionChecker
 import com.moviefy.data.PlayServicesLocationDatasource
@@ -54,19 +51,18 @@ private val appModule = module {
 val dataModule = module {
     factory { DateRepository() }
     factory { RegionRepository(get(), get()) }
-    factory { MoviesRepository(get(), get(), get(), get(named("apiKey"))) }
-    factory { FavouriteRepository(get()) }
-
+    factory { MoviesRepository(get(), get(), get(), get(), get(named("apiKey"))) }
 }
 
 private val scopesModule = module {
-    factory { (view: TrendingFilmsPresenter.View) -> TrendingFilmsPresenter(get(), get()) }
+    factory { (view: TrendingFilmsPresenter.View) -> TrendingFilmsPresenter(get(), get(), get()) }
     factory { FindTrendingMovies(get()) }
 
-    factory { (view: ReleaseFilmsPresenter.View) -> ReleaseFilmsPresenter(get(), get()) }
+    factory { (view: ReleaseFilmsPresenter.View) -> ReleaseFilmsPresenter(get(), get(), get()) }
     factory { GetReleasesMovies(get()) }
-    single { RoomDataSource(get()) }
 
-    factory { (view: FavouritePresenter.View) -> FavouritePresenter(get(), get()) }
+    factory { (view: FavouritePresenter.View) -> FavouritePresenter(get(), get(), get()) }
     factory { GetFavouritesMovies(get()) }
+    factory { RemoveFavouriteMovie(get()) }
+    factory { AddFavouriteMovie(get()) }
 }

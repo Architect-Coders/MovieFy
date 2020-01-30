@@ -3,9 +3,11 @@ package com.e.data
 import com.e.data.repository.DateRepository
 import com.e.data.repository.MoviesRepository
 import com.e.data.repository.RegionRepository
+import com.e.data.source.FavouriteDataSource
 import com.e.data.source.RemoteDataSource
 import com.e.testshared.mockedMovie
 import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
@@ -27,17 +29,20 @@ class MoviesRepositoryTest {
     @Mock
     lateinit var regionRepository: RegionRepository
 
+    @Mock
+    lateinit var favouriteDataSource: FavouriteDataSource
+
     lateinit var moviesRepository: MoviesRepository
 
     private val apiKey = "1a2b3c4d"
 
     @Before
     fun setUp() {
-        moviesRepository = MoviesRepository(remoteDataSource, dateRepository, regionRepository, apiKey)
+        moviesRepository = MoviesRepository(remoteDataSource, dateRepository, regionRepository, favouriteDataSource, apiKey)
     }
 
     @Test
-    fun `get favourite films from local data`() {
+    fun `get  films from remote data`() {
         runBlocking {
 
             val remoteMovies = listOf(mockedMovie.copy())
@@ -64,6 +69,39 @@ class MoviesRepositoryTest {
             val movies = moviesRepository.findTrendingFilms()
 
             Assert.assertEquals(remoteMovies, movies)
+        }
+    }
+
+    @Test
+    fun `get favourite films of local data`() {
+        runBlocking {
+
+            val remoteMovies = listOf(mockedMovie.copy())
+            whenever(moviesRepository.getFavouritesMovies()).thenReturn(remoteMovies)
+
+            val movies = moviesRepository.getFavouritesMovies()
+
+            Assert.assertEquals(remoteMovies, movies)
+        }
+    }
+
+    @Test
+    fun `add favourite films`() {
+        runBlocking {
+
+            val remoteMovies = mockedMovie.copy()
+            moviesRepository.addFavouriteMovie(remoteMovies)
+            verify(favouriteDataSource).addFavourite(remoteMovies)
+        }
+    }
+
+    @Test
+    fun `remote favourite films`() {
+        runBlocking {
+
+            val remoteMovies = mockedMovie.copy()
+            moviesRepository.removeFavouriteMovie(remoteMovies)
+            verify(favouriteDataSource).removeFavourites(remoteMovies)
         }
     }
 }

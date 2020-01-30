@@ -1,14 +1,15 @@
 package com.moviefy.ui.trending
 
+import com.e.usecases.AddFavouriteMovie
 import com.moviefy.data.database.Movie
 import com.e.usecases.FindTrendingMovies
-import com.moviefy.data.database.RoomDataSource
+import com.e.usecases.RemoveFavouriteMovie
 import com.moviefy.data.toDomainMovie
 import com.moviefy.data.toMovieUi
 import com.moviefy.ui.common.Scope
 import kotlinx.coroutines.launch
 
-class TrendingFilmsPresenter(private val findeTrendingMovies: FindTrendingMovies,  private val favouriteRepository: RoomDataSource) : Scope by Scope.Impl() {
+class TrendingFilmsPresenter(private val findeTrendingMovies: FindTrendingMovies,  private val removeMovie: RemoveFavouriteMovie, private val addFavouriteMovie: AddFavouriteMovie) : Scope by Scope.Impl() {
 
     interface View {
         fun showProgress()
@@ -41,11 +42,11 @@ class TrendingFilmsPresenter(private val findeTrendingMovies: FindTrendingMovies
         launch {
             if (isFavourite) {
                 movie.favourite = true
-                favouriteRepository.addFavourite(movie.toDomainMovie())
+                addFavouriteMovie(movie.toDomainMovie())
                 view?.saveInFavourites()
             } else {
                 movie.favourite = false
-                favouriteRepository.removeFavourites(movie.toDomainMovie())
+                removeMovie(movie.toDomainMovie())
                 view?.removeFromFavourites()
             }
         }
