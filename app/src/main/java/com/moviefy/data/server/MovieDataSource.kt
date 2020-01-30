@@ -6,7 +6,7 @@ import com.moviefy.data.toServerToDomain
 
 class MovieDataSource(private val modibeDb: MovieDb): RemoteDataSource {
 
-    override suspend fun listReleaseFilms(apiKey: String, region: String, releaseFilmDate: String, finalReleaseFilmDate: String, releaseType: String)
+    override suspend fun getReleaseFilms(apiKey: String, region: String, releaseFilmDate: String, finalReleaseFilmDate: String, releaseType: String)
             : List<Movie> =
         modibeDb.service
             .listReleaseFilmsAsync(
