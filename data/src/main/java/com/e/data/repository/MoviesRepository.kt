@@ -16,7 +16,6 @@ class MoviesRepository(
     }
 
     suspend fun getReleaseFilms(): List<Movie> {
-
         return remoteDataSource.listReleaseFilms(
             apiKey = apikey,
             region = regionRepository.findLastRegion(),
