@@ -4,11 +4,11 @@ import com.e.data.source.RemoteDataSource
 import com.e.domain.Movie
 import com.moviefy.data.toServerToDomain
 
-class MovieDataSource: RemoteDataSource {
+class MovieDataSource(private val modibeDb: MovieDb): RemoteDataSource {
 
     override suspend fun listReleaseFilms(apiKey: String, region: String, releaseFilmDate: String, finalReleaseFilmDate: String, releaseType: String)
             : List<Movie> =
-        MovieDb.service
+        modibeDb.service
             .listReleaseFilmsAsync(
                 apiKey = apiKey,
                 region = region,
@@ -19,7 +19,7 @@ class MovieDataSource: RemoteDataSource {
             .map { it.toServerToDomain() }
 
     override suspend fun findTrendingMovies(apiKey: String, region: String, certification: String, voteAverage: String): List<Movie> =
-        MovieDb.service
+        modibeDb.service
             .findTrendingMoviesAsync(
                 apiKey = apiKey,
                 region = region,

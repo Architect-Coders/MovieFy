@@ -5,10 +5,10 @@ import com.e.domain.Movie
 
 
 class MoviesRepository(
-    private val apikey: String,
     private val remoteDataSource: RemoteDataSource,
     private val dateRepository: DateRepository,
-    private val regionRepository: RegionRepository){
+    private val regionRepository: RegionRepository,
+    private val apikey: String){
 
     companion object{
         const val CERTIFICATION: String = "R"

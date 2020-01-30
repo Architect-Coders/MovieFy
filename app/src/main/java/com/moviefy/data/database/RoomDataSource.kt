@@ -7,9 +7,9 @@ import com.moviefy.data.toMovieUi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class FavouriteDataSource(data: FilmDatabase): FavouriteDataSource {
+class RoomDataSource(data: FilmDatabase): FavouriteDataSource {
 
-    private val database = data.filmDao()
+    private val database = data.movieDao()
     override suspend fun getFavourites(): List<Movie> = withContext(Dispatchers.IO) {
         database.loadAllFilms().map { it.toDomainMovie() }
     }

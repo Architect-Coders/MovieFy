@@ -2,13 +2,13 @@ package com.moviefy.ui.trending
 
 import com.moviefy.data.database.Movie
 import com.e.usecases.FindTrendingMovies
-import com.moviefy.data.database.FavouriteDataSource
+import com.moviefy.data.database.RoomDataSource
 import com.moviefy.data.toDomainMovie
 import com.moviefy.data.toMovieUi
 import com.moviefy.ui.common.Scope
 import kotlinx.coroutines.launch
 
-class TrendingFilmsPresenter(private val findeTrendingMovies: FindTrendingMovies,  private val favouriteRepository: FavouriteDataSource) : Scope by Scope.Impl() {
+class TrendingFilmsPresenter(private val findeTrendingMovies: FindTrendingMovies,  private val favouriteRepository: RoomDataSource) : Scope by Scope.Impl() {
 
     interface View {
         fun showProgress()
