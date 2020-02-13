@@ -9,36 +9,25 @@ import com.moviefy.data.toMovieUi
 import com.moviefy.ui.common.Scope
 import kotlinx.coroutines.launch
 
-class TrendingFilmsPresenter(private val findeTrendingMovies: FindTrendingMovies,  private val removeMovie: RemoveFavouriteMovie, private val addFavouriteMovie: AddFavouriteMovie) : Scope by Scope.Impl() {
+class TrendingMoviesPresenter(private var view: TrendingMoviesView? = null, private val findeTrendingMovies: FindTrendingMovies, private val removeMovie: RemoveFavouriteMovie, private val addFavouriteMovie: AddFavouriteMovie) : Scope by Scope.Impl() {
 
-    interface View {
-        fun showProgress()
-        fun hideProgress()
-        fun updateData(movies: List<Movie>)
-        fun navigateTo(movie: Movie)
-        fun saveInFavourites()
-        fun removeFromFavourites()
-    }
-
-    private var view: View? = null
-
-    fun onCreate(view: View) {
+    fun onCreate() {
         initScope()
-        this.view = view
 
         launch {
-            view.showProgress()
-            view.updateData(findeTrendingMovies().map { it.toMovieUi() })
-            view.hideProgress()
+            view?.showProgress()
+            view?.updateData(findeTrendingMovies().map { it.toMovieUi() })
+            view?.hideProgress()
         }
     }
 
-    fun onMovieClicked(movie: Movie, isFavourite: Boolean, isOpenDetail: Boolean) {
+    fun onMovieClicked(movie: Movie, isOpenDetail: Boolean) {
         if(isOpenDetail) {
             view?.navigateTo(movie)
-            return
         }
+    }
 
+    fun updateFavourites(movie: Movie, isFavourite: Boolean){
         launch {
             if (isFavourite) {
                 movie.favourite = true
@@ -53,7 +42,7 @@ class TrendingFilmsPresenter(private val findeTrendingMovies: FindTrendingMovies
     }
 
     fun onDestroy() {
-        this.view = null
+        view = null
         destroyScope()
     }
 }

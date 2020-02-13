@@ -10,38 +10,27 @@ import com.moviefy.data.toMovieUi
 import com.moviefy.ui.common.Scope
 import kotlinx.coroutines.launch
 
-class ReleaseFilmsPresenter(private val getReleasesMovies: GetReleasesMovies, private val removeMovie: RemoveFavouriteMovie, private val addFavouriteMovie: AddFavouriteMovie) : Scope by Scope.Impl() {
+class ReleaseFilmsPresenter(private var view: ReleaseFilmsView? = null, private val getReleasesMovies: GetReleasesMovies, private val removeMovie: RemoveFavouriteMovie, private val addFavouriteMovie: AddFavouriteMovie) : Scope by Scope.Impl() {
 
-    interface View {
-        fun showProgress()
-        fun hideProgress()
-        fun updateData(movies: List<Movie>)
-        fun navigateTo(movie: Movie)
-        fun saveInFavourites()
-        fun removeFromFavourites()
-    }
-
-    private var view: View? = null
-
-    fun onCreate(view: View) {
+    fun onCreate() {
         initScope()
-        this.view = view
 
         launch {
-            view.showProgress()
-            view.updateData(getReleasesMovies().map { it.toMovieUi() })
-            view.hideProgress()
+            view?.showProgress()
+            view?.updateData(getReleasesMovies().map { it.toMovieUi() })
+            view?.hideProgress()
         }
     }
 
-    fun onMovieClicked(movie: Movie, favourite: Boolean, openDetail: Boolean) {
-        if(openDetail) {
+    fun onMovieClicked(movie: Movie, isOpenDetail: Boolean) {
+        if(isOpenDetail) {
             view?.navigateTo(movie)
-            return
         }
+    }
 
+    fun updateFavourites(movie: Movie, isFavourite: Boolean){
         launch {
-            if (favourite) {
+            if (isFavourite) {
                 movie.favourite = true
                 addFavouriteMovie(movie.toDomainMovie())
                 view?.saveInFavourites()
@@ -54,7 +43,7 @@ class ReleaseFilmsPresenter(private val getReleasesMovies: GetReleasesMovies, pr
     }
 
     fun onDestroy() {
-        this.view = null
+        view = null
         destroyScope()
     }
 }

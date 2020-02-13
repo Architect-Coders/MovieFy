@@ -16,9 +16,15 @@ import com.moviefy.data.database.FilmDatabase
 import com.moviefy.data.database.RoomDataSource
 import com.moviefy.data.server.MovieDataSource
 import com.moviefy.data.server.MovieDb
+import com.moviefy.ui.detailMovie.DetailMovie
+import com.moviefy.ui.detailMovie.DetailMoviePresenter
+import com.moviefy.ui.detailMovie.DetailMovieView
 import com.moviefy.ui.favourites.FavouritePresenter
+import com.moviefy.ui.favourites.FavouriteView
 import com.moviefy.ui.releaseFilms.ReleaseFilmsPresenter
-import com.moviefy.ui.trending.TrendingFilmsPresenter
+import com.moviefy.ui.releaseFilms.ReleaseFilmsView
+import com.moviefy.ui.trending.TrendingMoviesPresenter
+import com.moviefy.ui.trending.TrendingMoviesView
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidApplication
@@ -54,15 +60,18 @@ val dataModule = module {
     factory { MoviesRepository(get(), get(), get(), get(), get(named("apiKey"))) }
 }
 
-private val scopesModule = module {
-    factory { (view: TrendingFilmsPresenter.View) -> TrendingFilmsPresenter(get(), get(), get()) }
+val scopesModule = module {
+    factory { (view: TrendingMoviesView) -> TrendingMoviesPresenter(view, get(), get(), get()) }
     factory { FindTrendingMovies(get()) }
 
-    factory { (view: ReleaseFilmsPresenter.View) -> ReleaseFilmsPresenter(get(), get(), get()) }
+    factory { (view: ReleaseFilmsView) -> ReleaseFilmsPresenter(view, get(), get(), get()) }
     factory { GetReleasesMovies(get()) }
-
-    factory { (view: FavouritePresenter.View) -> FavouritePresenter(get(), get(), get()) }
-    factory { GetFavouritesMovies(get()) }
     factory { RemoveFavouriteMovie(get()) }
     factory { AddFavouriteMovie(get()) }
+
+    factory { (view: FavouriteView) -> FavouritePresenter(view, get(), get(), get()) }
+    factory { GetFavouritesMovies(get()) }
+
+    factory { (view: DetailMovieView) -> DetailMoviePresenter(view) }
+
 }

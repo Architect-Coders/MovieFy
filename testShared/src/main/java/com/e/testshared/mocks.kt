@@ -2,6 +2,7 @@ package com.e.testshared
 
 import com.e.domain.Movie
 
+
 val mockedMovie = Movie(
     0,
     1,

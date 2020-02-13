@@ -1,4 +1,4 @@
-package com.moviefy.ui.releaseFilms
+package com.moviefy.ui.releaseFilms.adapter
 
 import android.view.View
 import android.view.ViewGroup

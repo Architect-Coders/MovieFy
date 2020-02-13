@@ -10,34 +10,22 @@ import com.moviefy.data.toMovieUi
 import com.moviefy.ui.common.Scope
 import kotlinx.coroutines.launch
 
-class FavouritePresenter(private val getFavouritesMovies: GetFavouritesMovies, private val removeMovie: RemoveFavouriteMovie, private val addFavouriteMovie: AddFavouriteMovie): Scope by Scope.Impl()  {
+class FavouritePresenter(private var view: FavouriteView? = null, private val getFavouritesMovies: GetFavouritesMovies, private val removeMovie: RemoveFavouriteMovie, private val addFavouriteMovie: AddFavouriteMovie): Scope by Scope.Impl()  {
 
-    interface View {
-        fun showProgress()
-        fun hideProgress()
-        fun updateData(movies: List<Movie>)
-        fun navigateTo(movie: Movie)
-        fun emptyFavourites()
-        fun saveInFavourites()
-        fun removeFromFavourites()
-    }
 
-    private var view: View? = null
-
-    fun onCreate(view: View) {
+    fun onCreate() {
         initScope()
-        this.view = view
 
         launch {
-            view.showProgress()
+            view?.showProgress()
 
             if(getFavouritesMovies().isNotEmpty()){
-                view.updateData(getFavouritesMovies().map { it.toMovieUi() })
+                view?.updateData(getFavouritesMovies().map { it.toMovieUi() })
             }else{
-                view.emptyFavourites()
+                view?.emptyFavourites()
             }
 
-            view.hideProgress()
+            view?.hideProgress()
         }
     }
 
@@ -61,7 +49,7 @@ class FavouritePresenter(private val getFavouritesMovies: GetFavouritesMovies, p
     }
 
     fun onDestroy() {
-        this.view = null
+        view = null
         destroyScope()
     }
 }

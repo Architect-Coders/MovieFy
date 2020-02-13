@@ -6,22 +6,23 @@ import com.moviefy.data.database.Movie
 import com.moviefy.ui.base.GenericToolbarActivity
 import com.moviefy.ui.common.loadImage
 import kotlinx.android.synthetic.main.movie_detail.*
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 
-class DetailMovie: GenericToolbarActivity(), DetailMoviePresenter.View {
+class DetailMovie: GenericToolbarActivity(), DetailMovieView {
 
     companion object {
         const val MOVIE = "DetailMovie:movie"
     }
 
-    private val presenter = DetailMoviePresenter()
-
+    private val presenter: DetailMoviePresenter by inject { parametersOf(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_detail)
 
-        presenter.onCreate(this, intent.getParcelableExtra(MOVIE))
+        presenter.onCreate(intent.getParcelableExtra(MOVIE))
     }
 
     override fun onDestroy() {

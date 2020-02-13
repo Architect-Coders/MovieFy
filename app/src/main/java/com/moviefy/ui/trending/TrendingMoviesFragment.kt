@@ -9,24 +9,26 @@ import com.moviefy.R
 import com.moviefy.data.database.Movie
 import com.moviefy.ui.common.showToast
 import com.moviefy.ui.navigator.Navigator
-import com.moviefy.ui.releaseFilms.MoviesAdapter
+import com.moviefy.ui.releaseFilms.adapter.MoviesAdapter
 import kotlinx.android.synthetic.main.trending_movies_fragment.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-class TrendingMoviesFragment : Fragment(), TrendingFilmsPresenter.View {
+class TrendingMoviesFragment : Fragment(), TrendingMoviesView {
 
     private var adapter: MoviesAdapter? = null
-    private val presenter: TrendingFilmsPresenter by inject { parametersOf(this) }
+    private val presenter: TrendingMoviesPresenter by inject { parametersOf(this) }
 
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.trending_movies_fragment, parent, false)
 
         presenter.let { presenter ->
-            presenter.onCreate(this)
-            adapter = MoviesAdapter{movie, isSave, isOpenDetail ->
-                presenter.onMovieClicked(movie, isSave, isOpenDetail)
-            }
+            presenter.onCreate()
+            adapter =
+                MoviesAdapter { movie, isSave, isOpenDetail ->
+                    presenter.onMovieClicked(movie, isOpenDetail)
+                    presenter.updateFavourites(movie, isSave)
+                }
         }
 
         return rootView

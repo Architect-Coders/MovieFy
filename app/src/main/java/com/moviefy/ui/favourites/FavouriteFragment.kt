@@ -9,13 +9,13 @@ import com.moviefy.R
 import com.moviefy.data.database.Movie
 import com.moviefy.ui.common.showToast
 import com.moviefy.ui.navigator.Navigator
-import com.moviefy.ui.releaseFilms.MoviesAdapter
+import com.moviefy.ui.releaseFilms.adapter.MoviesAdapter
 import kotlinx.android.synthetic.main.favourite_fragment.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
 
-class FavouriteFragment : Fragment(), FavouritePresenter.View {
+class FavouriteFragment : Fragment(), FavouriteView {
 
     private val presenter: FavouritePresenter by inject { parametersOf(this) }
     private var adapter: MoviesAdapter? = null
@@ -24,10 +24,11 @@ class FavouriteFragment : Fragment(), FavouritePresenter.View {
         val rootView = inflater.inflate(R.layout.favourite_fragment, parent, false)
 
         presenter.let { presenter ->
-            presenter.onCreate(this)
-            adapter = MoviesAdapter{movie, isSave, isOpenDetail ->
-                presenter.onMovieClicked(movie, isSave, isOpenDetail)
-            }
+            presenter.onCreate()
+            adapter =
+                MoviesAdapter { movie, isSave, isOpenDetail ->
+                    presenter.onMovieClicked(movie, isSave, isOpenDetail)
+                }
         }
 
         return rootView

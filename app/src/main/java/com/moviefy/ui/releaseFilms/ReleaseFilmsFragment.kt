@@ -10,11 +10,12 @@ import com.moviefy.R
 import com.moviefy.data.database.Movie
 import com.moviefy.ui.common.showToast
 import com.moviefy.ui.navigator.Navigator
+import com.moviefy.ui.releaseFilms.adapter.MoviesAdapter
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
 
-class ReleaseFilmsFragment : Fragment(), ReleaseFilmsPresenter.View {
+class ReleaseFilmsFragment : Fragment(), ReleaseFilmsView {
 
     private val presenter: ReleaseFilmsPresenter by inject { parametersOf(this) }
     private var adapter: MoviesAdapter? = null
@@ -23,10 +24,12 @@ class ReleaseFilmsFragment : Fragment(), ReleaseFilmsPresenter.View {
         val rootView = inflater.inflate(R.layout.fragment_home, parent, false)
 
         presenter.let { presenter ->
-            presenter.onCreate(this)
-            adapter = MoviesAdapter{movie, isSave, openDetail ->
-                presenter.onMovieClicked(movie, isSave, openDetail)
-            }
+            presenter.onCreate()
+            adapter =
+                MoviesAdapter { movie, isSave, openDetail ->
+                    presenter.onMovieClicked(movie, openDetail)
+                    presenter.updateFavourites(movie, isSave)
+                }
         }
 
         return rootView
