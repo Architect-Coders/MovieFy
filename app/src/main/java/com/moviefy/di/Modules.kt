@@ -16,7 +16,6 @@ import com.moviefy.data.database.FilmDatabase
 import com.moviefy.data.database.RoomDataSource
 import com.moviefy.data.server.MovieDataSource
 import com.moviefy.data.server.MovieDb
-import com.moviefy.ui.detailMovie.DetailMovie
 import com.moviefy.ui.detailMovie.DetailMoviePresenter
 import com.moviefy.ui.detailMovie.DetailMovieView
 import com.moviefy.ui.favourites.FavouritePresenter

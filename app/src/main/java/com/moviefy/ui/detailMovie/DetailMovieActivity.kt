@@ -10,7 +10,7 @@ import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
 
-class DetailMovie: GenericToolbarActivity(), DetailMovieView {
+class DetailMovieActivity: GenericToolbarActivity(), DetailMovieView {
 
     companion object {
         const val MOVIE = "DetailMovie:movie"

@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:networkSecurityConfig="@xml/network_security_config"
         android:name=".MovieApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.detailMovie.DetailMovie"
+            android:name=".ui.detailMovie.DetailMovieActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
