@@ -20,7 +20,7 @@ import org.koin.test.KoinTest
 import org.koin.test.get
 
 
-class TrendingMoviesActivityTest : KoinTest {
+class ListMoviesTest : KoinTest {
 
     @get:Rule
     val mockWebServerRule = MockWebServerRule()

@@ -1,9 +1,12 @@
 package com.moviefy
 
 import android.content.Context
+import com.e.data.repository.MoviesRepository
+import com.e.data.source.RemoteDataSource
 import com.e.testshared.mockedMovie
 import com.e.usecases.*
 import com.moviefy.data.toMovieUi
+import com.moviefy.di.dataModule
 import com.moviefy.di.scopesModule
 import com.moviefy.ui.releaseFilms.ReleaseFilmsPresenter
 import com.moviefy.ui.releaseFilms.ReleaseFilmsView
@@ -45,7 +48,7 @@ class ReleaseFilmsPresenterTest: KoinTest {
         }
         declareMock<AddFavouriteMovie>()
         declareMock<RemoveFavouriteMovie>()
-        declareMock<GetFavouritesMovies>()
+        declareMock<GetReleasesMovies>()
     }
 
     @Test
