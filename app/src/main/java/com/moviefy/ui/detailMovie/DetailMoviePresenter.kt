@@ -1,18 +1,12 @@
 package com.moviefy.ui.detailMovie
 
-import com.moviefy.model.Movie
+import com.moviefy.data.database.Movie
 
-class DetailMoviePresenter{
 
-    private var view: View? = null
+class DetailMoviePresenter(private var view: DetailMovieView? = null){
 
-    interface View {
-        fun updateUI(movie: Movie)
-    }
-
-    fun onCreate(view: View, movie: Movie) {
-        this.view = view
-        view.updateUI(movie)
+    fun onCreate(movie: Movie) {
+        view?.updateUI(movie)
     }
 
     fun onDestroy() {

@@ -7,16 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.moviefy.MovieApplication
 import kotlin.properties.Delegates
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = true): View =
     LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 
-fun ImageView.loadImage(itemFilm: String) {
+fun ImageView.loadImage(itemFilm: String?) {
     Glide.with(context).load("https://image.tmdb.org/t/p/w185/${itemFilm}").into(this)
 }
 
@@ -45,3 +47,10 @@ inline fun <VH : RecyclerView.ViewHolder, T> RecyclerView.Adapter<VH>.basicDiffU
             override fun getNewListSize(): Int = new.size
         }).dispatchUpdatesTo(this@basicDiffUtil)
     }
+
+fun Context.showToast(message: String, length: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, message, length).show()
+}
+
+val Context.app: MovieApplication
+    get() = applicationContext as MovieApplication

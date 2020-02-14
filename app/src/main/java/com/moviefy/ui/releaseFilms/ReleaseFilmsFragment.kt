@@ -5,26 +5,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.moviefy.model.Movie
-import com.moviefy.model.MoviesRepository
 import kotlinx.android.synthetic.main.fragment_home.*
 import com.moviefy.R
+import com.moviefy.data.database.Movie
+import com.moviefy.ui.common.showToast
 import com.moviefy.ui.navigator.Navigator
+import com.moviefy.ui.releaseFilms.adapter.MoviesAdapter
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 
-class ReleaseFilmsFragment : Fragment(), ReleaseFilmsPresenter.View {
+class ReleaseFilmsFragment : Fragment(), ReleaseFilmsView {
 
-    private var presenter: ReleaseFilmsPresenter? = null
+    private val presenter: ReleaseFilmsPresenter by inject { parametersOf(this) }
     private var adapter: MoviesAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_home, parent, false)
 
-        presenter = ReleaseFilmsPresenter(MoviesRepository(activity!!))
-
-        presenter?.let { presenter ->
-            presenter.onCreate(this)
-            adapter = MoviesAdapter(presenter::onMovieClicked)
+        presenter.let { presenter ->
+            presenter.onCreate()
+            adapter =
+                MoviesAdapter { movie, isSave, openDetail ->
+                    presenter.onMovieClicked(movie, openDetail)
+                    presenter.updateFavourites(movie, isSave)
+                }
         }
 
         return rootView
@@ -35,7 +40,7 @@ class ReleaseFilmsFragment : Fragment(), ReleaseFilmsPresenter.View {
     }
 
     override fun onDestroy() {
-        presenter?.onDestroy()
+        presenter.onDestroy()
         super.onDestroy()
     }
 
@@ -57,5 +62,11 @@ class ReleaseFilmsFragment : Fragment(), ReleaseFilmsPresenter.View {
         progressBar.visibility = View.INVISIBLE
     }
 
+    override fun saveInFavourites() {
+        activity?.showToast(getString(R.string.movie_save_favourite))
+    }
 
+    override fun removeFromFavourites() {
+        activity?.showToast(getString(R.string.movie_remove_favourite))
+    }
 }
