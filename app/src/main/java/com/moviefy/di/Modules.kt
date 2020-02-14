@@ -72,5 +72,4 @@ val scopesModule = module {
     factory { GetFavouritesMovies(get()) }
 
     factory { (view: DetailMovieView) -> DetailMoviePresenter(view) }
-
 }

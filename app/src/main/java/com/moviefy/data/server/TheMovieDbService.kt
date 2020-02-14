@@ -21,7 +21,6 @@ interface TheMovieDbService {
         @Query("countryId") region: String,
         @Query("certification") certification: String,
         @Query("sort_by") sortBy: String
-
     ): Deferred<MovieDbResult>
 }
 
