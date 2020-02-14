@@ -27,8 +27,7 @@ class ReleaseFilmsFragment : Fragment(), ReleaseFilmsView {
             presenter.onCreate()
             adapter =
                 MoviesAdapter { movie, isSave, openDetail ->
-                    presenter.onMovieClicked(movie, openDetail)
-                    presenter.updateFavourites(movie, isSave)
+                    presenter.onMovieClicked(movie, openDetail, isSave)
                 }
         }
 

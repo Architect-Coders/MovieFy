@@ -22,10 +22,16 @@ class ReleaseFilmsPresenter(private var view: ReleaseFilmsView? = null, private 
         }
     }
 
-    fun onMovieClicked(movie: Movie, isOpenDetail: Boolean) {
+    fun onMovieClicked(movie: Movie, isOpenDetail: Boolean, isFavourite: Boolean) {
         if(isOpenDetail) {
-            view?.navigateTo(movie)
+            openFavourite(movie)
+        }else{
+            updateFavourites(movie, isFavourite)
         }
+    }
+
+    fun openFavourite(movie: Movie){
+        view?.navigateTo(movie)
     }
 
     fun updateFavourites(movie: Movie, isFavourite: Boolean){

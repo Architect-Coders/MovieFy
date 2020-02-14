@@ -10,8 +10,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @Entity(tableName = "movie", indices = [Index("id", unique = true)])
 data class Movie(
-    @PrimaryKey(autoGenerate = true) val uid: Int,
-    val id: Int,
+    @PrimaryKey val id: Int,
     val title: String,
     val overview: String,
     val releaseDate: String,

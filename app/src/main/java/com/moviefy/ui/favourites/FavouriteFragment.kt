@@ -27,7 +27,7 @@ class FavouriteFragment : Fragment(), FavouriteView {
             presenter.onCreate()
             adapter =
                 MoviesAdapter { movie, isSave, isOpenDetail ->
-                    presenter.onMovieClicked(movie, isSave, isOpenDetail)
+                    presenter.onMovieClicked(movie, isOpenDetail, isSave)
                 }
         }
 

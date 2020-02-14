@@ -6,7 +6,6 @@ import com.moviefy.data.server.Movie as ServerMovie
 
 fun Movie.toMovieUi(): DomainMovie =
     DomainMovie(
-        uid,
         id,
         title,
         overview,
@@ -21,7 +20,6 @@ fun Movie.toMovieUi(): DomainMovie =
     )
 
 fun DomainMovie.toDomainMovie(): Movie = Movie(
-    uid = uid,
     id = id,
     title = title,
     overview = overview,
@@ -38,7 +36,6 @@ fun DomainMovie.toDomainMovie(): Movie = Movie(
 
 fun ServerMovie.toServerToDomain(): Movie =
     Movie(
-        0,
         id,
         title,
         overview,

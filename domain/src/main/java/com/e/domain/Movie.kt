@@ -1,7 +1,6 @@
 package com.e.domain
 
 data class Movie(
-    val uid: Int,
     val id: Int,
     val title: String,
     val overview: String,

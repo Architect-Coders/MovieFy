@@ -29,14 +29,21 @@ class FavouritePresenter(private var view: FavouriteView? = null, private val ge
         }
     }
 
-    fun onMovieClicked(movie: Movie, isSave: Boolean, isOpenDetail: Boolean) {
+    fun onMovieClicked(movie: Movie, isOpenDetail: Boolean, isFavourite: Boolean) {
         if(isOpenDetail) {
-            view?.navigateTo(movie)
-            return
+            openFavourite(movie)
+        }else{
+            updateFavourites(movie, isFavourite)
         }
+    }
 
+    fun openFavourite(movie: Movie){
+        view?.navigateTo(movie)
+    }
+
+    fun updateFavourites(movie: Movie, isFavourite: Boolean){
         launch {
-            if (isSave) {
+            if (isFavourite) {
                 movie.favourite = true
                 addFavouriteMovie(movie.toDomainMovie())
                 view?.saveInFavourites()

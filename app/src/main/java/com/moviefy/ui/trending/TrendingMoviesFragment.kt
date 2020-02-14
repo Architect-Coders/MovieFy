@@ -26,8 +26,7 @@ class TrendingMoviesFragment : Fragment(), TrendingMoviesView {
             presenter.onCreate()
             adapter =
                 MoviesAdapter { movie, isSave, isOpenDetail ->
-                    presenter.onMovieClicked(movie, isOpenDetail)
-                    presenter.updateFavourites(movie, isSave)
+                    presenter.onMovieClicked(movie, isOpenDetail, isSave)
                 }
         }
 
