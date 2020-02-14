@@ -53,7 +53,7 @@ class ReleaseFilmsPresenterTest: KoinTest {
 
     @Test
     fun `show detail movie`() {
-        presenter.onMovieClicked(mockedMovie.toMovieUi(), isOpenDetail = true)
+        presenter.onMovieClicked(mockedMovie.toMovieUi(), isOpenDetail = true, isFavourite = false)
         verify(view).navigateTo(mockedMovie.toMovieUi())
     }
 

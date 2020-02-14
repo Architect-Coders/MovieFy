@@ -28,6 +28,6 @@ class DetailActivityTest{
     @Test
     fun check_intent_is_received_and_show_elements(){
         Espresso.onView(ViewMatchers.withId(R.id.movieDescription))
-            .check(ViewAssertions.matches(ViewMatchers.withText("Overview")))
+            .check(ViewAssertions.matches(ViewMatchers.withText("Description")))
     }
 }
